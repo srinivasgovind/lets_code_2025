@@ -1,7 +1,10 @@
 
 # 📅 Day X: [Date]
 
-
+## What I Learned
+- **Topic:**
+- **Details:**
+- **Streak Break Reason: No**
 
 ## 🚀 Problems Solved
 
