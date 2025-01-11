@@ -1,0 +1,50 @@
+name: Create Daily Learning Log
+
+on:
+  schedule:
+    - cron: '0 5 * * *'  # This will run at midnight CST (5 AM UTC)
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  create-daily-file:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create daily log file
+        run: |
+          # Set timezone to CST
+          export TZ='America/Chicago'
+          
+          # Set the start date (July 15th as day 6)
+          START_DATE="2025-01-10"
+          
+          # Calculate the day number
+          CURRENT_DATE=$(date +%Y-%m-%d)
+          DAYS_DIFF=$(( ($(date -d "$CURRENT_DATE" +%s) - $(date -d "$START_DATE" +%s)) / 86400 ))
+          DAY_NUMBER=$((DAYS_DIFF + 1))
+          
+          # Format date and filename
+          FORMATTED_DATE=$(date +%Y-%m-%d)
+          FILENAME="day_${DAY_NUMBER}.md"
+          FOLDER=$(date +%B)
+          
+          # Create folder if it doesn't exist
+          mkdir -p $FOLDER
+          
+          # Copy template and replace placeholders
+          sed "s/Day X/Day ${DAY_NUMBER}/g; s/\[Date\]/${FORMATTED_DATE}/g" template.md > "$FOLDER/$FILENAME"
+          
+          echo "Created file $FOLDER/$FILENAME for Day ${DAY_NUMBER}"
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Automated creation of daily log file for Day ${DAY_NUMBER}"
+          git push
