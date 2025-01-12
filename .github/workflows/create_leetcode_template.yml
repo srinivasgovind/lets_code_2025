@@ -20,13 +20,13 @@ jobs:
           # Set timezone to CST
           export TZ='America/Chicago'
           
-          # Set the start date (July 15th as day 6)
+          
           START_DATE="2025-01-09"
           
           # Calculate the day number
           CURRENT_DATE=$(date +%Y-%m-%d)
           DAYS_DIFF=$(( ($(date -d "$CURRENT_DATE" +%s) - $(date -d "$START_DATE" +%s)) / 86400 ))
-          DAY_NUMBER=$((DAYS_DIFF + 1))
+          DAY_NUMBER=$((DAYS_DIFF))
           
           # Format date and filename
           FORMATTED_DATE=$(date +%Y-%m-%d)
