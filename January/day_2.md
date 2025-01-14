@@ -2,8 +2,8 @@
 # 📅 Day 2: 2025-01-11
 
 ## What I Learned
-- **Topic:**
-- **Details:**
+- **Topic:ADV DSA 1**
+- **Details: HW Problems**
 - **Streak Break Reason: No**
 
 ## 🚀 Problems Solved
