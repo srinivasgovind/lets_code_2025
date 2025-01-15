@@ -2,8 +2,8 @@
 # 📅 Day 3: 2025-01-12
 
 ## What I Learned
-- **Topic:**
-- **Details:**
+- **Topic: ADV DSA**
+- **Details: Array 1**
 - **Streak Break Reason: No**
 
 ## 🚀 Problems Solved
@@ -168,36 +168,124 @@ public int solve(int[] A, int[] B, int[] C, int[] D) {
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Write the eqns, by expanding abs function, if you calculate there will 32 possible expressions.. ABCDE binary represenation of signs *
+- **⏳ Time Complexity:** `O(n)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 2
-[Write your Java code here]
+public int solve(int[] A, int[] B, int[] C, int[] D) {
+
+
+  int[] sign = new int[5];
+  int max_ans = Integer.MIN_VALUE;
+
+  for(int i =0; i < 32; i++){
+
+    for(int j = 0; j < 5; j++){
+      sign[j] = (i >> j) & 1;
+      sign[j] = sign[j] == 0 ? -1 : 1;
+    }
+    int min = Integer.MAX_VALUE;
+    int max = Integer.MIN_VALUE;
+    for(int k = 0; k < A.length; k++){
+      int value = (A[k]* sign[0])+ (B[k] + sign[1]) + (C[k] * sign[2]) + (D[k] * sign[3]) + (k) * (sign[4]);
+      min = Math.min(min, value);
+      max = Math.max(max, value);
+    }
+
+    max_ans = Math.max(max_ans, max-min);
+
+  }
+  return max_ans;
+}
 ```
 
 ---
 
-### 🧩 Problem 3: [Problem Title or Description]
+### 🧩 Problem 3: 
+Given a 2D Matrix A of dimensions N*N, we need to return the sum of all possible submatrices.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
+  - *Created Prefix Matrix, generated all submatrices and calculated sum using prefix matrix*
 - **⏳ Time Complexity:** `O(n^2)`
 - **💾 Space Complexity:** `O(n)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int solve(int[][] A) {
+  int n = A.length;
+  int [][] pf = new int[n][n];
+
+  //row-wise prefix    
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+      if(j == 0){
+        pf[i][j] = A[i][j];
+        continue;
+      }
+      pf[i][j] = pf[i][j-1] + A[i][j];
+    }
+  }
+
+  //column-wise prefix
+  for(int j = 0; j < n; j++){
+    for(int i = 1; i < n; i++){
+
+      pf[i][j] = pf[i-1][j] + pf[i][j];
+    }
+  }
+
+  //caculate all submatrices sum
+  int max_ans = 0;
+
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+      //A(i,j)
+
+      for(int k = i; k < n; k++){
+
+        for(int l = j; l < n; l++){
+
+          //B(k, l)
+          int sum = pf[k][l];
+          if(j > 0){
+            sum -= pf[k][j-1];
+          }
+          if(i > 0){
+            sum -= pf[i-1][l];
+          }
+          if( i > 0 && j  > 0){
+            sum += pf[i-1][j-1];
+          }
+          max_ans += sum;
+        }
+      }
+    }
+  }
+
+  return max_ans;
+}
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
+  - *Contribution Technique*
 - **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int solve(int[][] A) {
+  int n = A.length;
+  int ans = 0;
+
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+      ans += A[i][j] * ((i+1) * (j+ 1) * (n - i) *( n - j));
+    }
+  }
+
+  return ans;
+}
 ```
 
 ---
