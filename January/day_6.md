@@ -10,9 +10,16 @@
 
 ---
 
-### 🧩 Problem 1: [Problem Title or Description]
+### 🧩 Problem 1: 
+Given an array of integers A of size N that is a permutation of [0, 1, 2, ..., (N-1)].
+
+It is allowed to swap any two elements (not necessarily consecutive).
+
+
+
+Find the minimum number of swaps required to sort the array in ascending order.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
+  - *Iterate the array, find no of cycles can be formed*
 - **⏳ Time Complexity:** `O(n^2)`
 - **💾 Space Complexity:** `O(n)`
 
