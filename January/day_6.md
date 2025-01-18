@@ -155,25 +155,65 @@ public int solve(int A) {
 
 ---
 
-### 🧩 Problem 3: [Problem Title or Description]
+### 🧩 Problem 3: 
+Given an unsorted integer array, A of size N. Find the first missing positive integer.
+
+
+
+
+
+Note: Your algorithm should run in O(n) time and use constant space.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
+  - *Here we're using O(n) space to store input ele in hashset, with O(1) time checking whether 1 to N+1 elements are in hs*
+- **⏳ Time Complexity:** `O(n)`
 - **💾 Space Complexity:** `O(n)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int firstMissingPositive(int[] A) {
+  int n = A.length;
+  HashSet<Integer> hs =new HashSet<>();
+
+  for(int ele : A){
+    hs.add(ele);
+  }
+
+  for(int i = 1; i <= n+1; i++){
+    if(!hs.contains(i)){
+      return i;
+    }
+  }
+  return -1;
+}
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Any element should be in their i+1 position, if they're not swap to their right position then iterate once to get the first missing element, TC is complex to understand, as we have inner loop as well... but the thing every swap through while loop make element in their right position. so loops runs only n-1 times to place every element in their right position.*
+- **⏳ Time Complexity:** `O(n)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int firstMissingPositive(int[] A) {
+  int n = A.length;
+  //swap the array in place to its correct position any ith position should have i+1 as a value in it.
+
+  for(int i = 0; i < n; i++){
+
+    while(A[i] > 0 && A[i] <= n && A[i] != A[A[i] -1]){
+      int temp = A[i];
+      A[i] = A[temp - 1];
+      A[temp - 1] = temp;
+    }
+  }
+
+  for(int i = 0; i < n; i++){
+    if(A[i] != i+1){
+      return i+1;
+    }
+  }
+  return n + 1;
+}
 ```
 
 ---
