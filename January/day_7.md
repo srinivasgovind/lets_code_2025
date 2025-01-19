@@ -86,7 +86,7 @@ You have a set of non-overlapping intervals. You are given a new interval [start
 
 You may assume that the intervals were initially sorted according to their start times.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
+  - *The simpliest thought to solve this, add this interval to existing interval, sort the entire intervals based on their startime, now merge the interval if needed*
 - **⏳ Time Complexity:** `O(nlogn)`
 - **💾 Space Complexity:** `O(1)`
 
@@ -119,37 +119,78 @@ public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInt
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Different approach, utilizing the sorted intervals information*
+- **⏳ Time Complexity:** `O(n)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 2
-[Write your Java code here]
+public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+  ArrayList<Interval> result = new ArrayList<>();
+  int i = 0;
+  //Add Intervals which are before the new Interval.
+  while(i < intervals.size() && intervals.get(i).end < newInterval.start){
+    result.add(intervals.get(i));
+    i++;
+  }
+
+  //merge overlapping intervals
+  while(i < intervals.size() && intervals.get(i).start <= newInterval.end){
+    newInterval.start = Math.min(intervals.get(i).start, newInterval.start);
+    newInterval.end = Math.max(intervals.get(i).end, newInterval.end);
+    i++;
+  }
+
+  result.add(newInterval);
+
+  //Add Intervals which are after the merge.
+  while(i < intervals.size() && intervals.get(i).start > newInterval.end){
+    result.add(intervals.get(i));
+    i++;
+  }
+
+  return result;
+}
 ```
 
 ---
 
-### 🧩 Problem 3: [Problem Title or Description]
-- **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+### 🧩 Problem 3: 
+Given a collection of intervals, merge all overlapping intervals.
+- **Approach 1: Optimized**
+  - *Sorted the array, it is sub-problem of previous problem (sort the intervals, merge if necessary)*
+- **⏳ Time Complexity:** `O(nlogn)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
+  ArrayList<Interval> results = new ArrayList<>();
+
+  //sorted  the intervals based on their start
+  intervals.sort((a, b) -> a.start - b.start);
+
+  //Merge If needed
+
+  Interval prev = intervals.get(0);
+
+  for(int i = 1; i < intervals.size(); i++){
+    Interval current = intervals.get(i);
+    if(current.start <= prev.end){
+      prev.end = Math.max(prev.end, current.end);
+    }
+    else{
+      results.add(prev);
+      prev = current;
+    }
+  }
+
+  //add last interval
+  results.add(prev);
+
+  return results;
+
+}
 ```
-
-- **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
-
-```java
-// Code implementation for Problem 3
-[Write your Java code here]
-```
-
 ---
 
