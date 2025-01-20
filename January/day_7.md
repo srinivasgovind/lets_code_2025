@@ -2,8 +2,8 @@
 # 📅 Day 7: 2025-01-16
 
 ## What I Learned
-- **Topic:**
-- **Details:**
+- **Topic: Arrays 3**
+- **Details: ADV DSA**
 - **Streak Break Reason: No**
 
 ## 🚀 Problems Solved
