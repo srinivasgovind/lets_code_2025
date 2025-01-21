@@ -79,13 +79,28 @@ Example:
 
 The Array A = [5, 4, 1, 4, 3, 2, 7] is visualized as below. The total amount of rain water trapped in A is 11.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
+  - *At every index left max boundary and right max boundary decides how much water is trapped, for every index we need to know their left max and right max boundaries to calculate water trapeed at that index*
+- **⏳ Time Complexity:** `O(n)`
 - **💾 Space Complexity:** `O(n)`
 
 ```java
 // Code implementation for Problem 2
-[Write your Java code here]
+public int trap(final List<Integer> A) {
+  int n = A.size();
+  int[] suffix_max = new int[n];
+  int ans = 0;
+  suffix_max[n-1] = A.get(n-1);
+  for(int i = n-2; i>=0; i--){
+    suffix_max[i] = Math.max(A.get(i),suffix_max[i+1]);
+  }
+
+  int left_max = A.get(0);
+  for(int i = 1; i < n; i++){
+    ans += Math.max(0, Math.min(left_max,suffix_max[i])-A.get(i));
+    left_max = Math.max(left_max, A.get(i));
+  }
+  return ans;
+}
 ```
 
 - **Approach 2: Optimized**
