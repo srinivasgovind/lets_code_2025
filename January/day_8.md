@@ -139,25 +139,39 @@ public int trap(final List<Integer> A) {
 
 ---
 
-### 🧩 Problem 3: [Problem Title or Description]
+### 🧩 Problem 3: Write a function that takes an integer and returns the number of 1 bits present in its binary representation.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *check last bit is set or not and Right Shift*
+- **⏳ Time Complexity:** `O(log2(A))`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int numSetBits(int A) {
+  int setBits = 0;
+  while(A > 0){
+    setBits += (A & 1) == 1 ? 1 : 0;
+    A = A >> 1;
+  }
+  return setBits;
+}
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Syntax Optimization*
+- **⏳ Time Complexity:** `O(log2(A))`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int numSetBits(int A) {
+  int setBits = 0;
+  while(A > 0){
+    setBits += (A & 1);
+    A >>=1;
+  }
+  return setBits;
+}
 ```
 
 ---
