@@ -93,14 +93,41 @@ public int cntBits(int[] A) {
 }
 ```
 
-- **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+- **Approach 2: Optimized(revisit)**
+  - *Bit contribution technique for overall differnt bit count, trick for intution*
+- **⏳ Time Complexity:** `O(n*32)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 2
-[Write your Java code here]
+public static final int MOD = 1_000_000_007;
+public int cntBits(int[] A) {
+  //final count
+  long count = 0;
+
+  //iterate all the bits
+  for(int i = 0; i < 31; i++){
+    //no of ones at ith bit for the entire array
+    int no_of_ones = 0;
+
+    //no of zeros at ith bit for the entire array
+    int no_of_zeros = 0;
+
+    for(int j = 0; j < A.length; j++){
+      if((A[j] & (1 << i)) != 0){
+        no_of_ones++;
+      }
+    }
+
+    no_of_zeros = A.length - no_of_ones;
+    long contribution = ((long) no_of_ones * no_of_zeros * 2) % MOD;
+    //contribution of ith bit to total count
+    count = (count + contribution) % MOD;
+
+
+  }
+  return (int)count;
+}
 ```
 
 ---
