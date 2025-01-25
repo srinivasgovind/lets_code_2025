@@ -132,25 +132,53 @@ public int cntBits(int[] A) {
 
 ---
 
-### 🧩 Problem 3: [Problem Title or Description]
-- **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+### 🧩 Problem 3: 
+Given an array of positive integers A, two integers appear only once, and all the other integers appear twice.
+Find the two integers that appear only once.
 
-```java
-// Code implementation for Problem 3
-[Write your Java code here]
-```
+Note: Return the two numbers in ascending order.
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Easy to grasp the concept, xor of same element is zero, so if we do xor of all elements we left with xor of unique elements, we need to sepeate them out somehow, find a bit pos which seperates them out, that mean xor result where bit pos is set that mean both elements are differ by that bit. so div the array into buckets based on set and unset for that pos, and do xor of those buckets we get two unique elements seperated out*
+- **⏳ Time Complexity:** `O(n)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int[] solve(int[] A) {
+  //xor of entire array
+  int xor = 0;
+  for(int i = 0; i < A.length; i++){
+    xor ^= A[i];
+  }
+
+  //Find pos where bit is set, that tells both element will be different by one this bit.
+
+  int pos = 0;
+
+  while(xor > 0){
+    if((xor & 1) == 1){
+      break;
+    }
+    pos++;
+    xor >>= 1;
+  }
+
+  //Divide the entire array whether pos bit set or unset groups, and xor of the group respectively. we get two unique elements.
+  int set = 0;
+  int unset = 0;
+  for(int i = 0; i < A.length; i++){
+    if((A[i] & (1 << pos)) != 0){
+      //bit is set in A[i]
+      set ^= A[i];
+    }
+    else{
+      //bit is unset in A[i]
+      unset ^= A[i];
+    }
+  }
+  return new int [] { unset < set ? unset: set, unset > set ? unset : set};
+}
 ```
 
 ---
