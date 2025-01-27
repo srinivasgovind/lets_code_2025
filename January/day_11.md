@@ -82,7 +82,7 @@ public int singleNumber(final int[] A) {
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
+  - *[Briefly describe your aproach]*
 - **⏳ Time Complexity:** `O(n^2)`
 - **💾 Space Complexity:** `O(n)`
 
