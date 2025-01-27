@@ -47,25 +47,45 @@ public int singleNumber(final int[] A) {
 
 ---
 
-### 🧩 Problem 2: [Problem Title or Description]
+### 🧩 Problem 2: 
+Given an integer array A of N integers, find the pair of integers in the array which have minimum XOR value. Report the minimum XOR value.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
+  - *Bruteforce way, condn i!=j*
 - **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 2
-[Write your Java code here]
+public int findMinXor(int[] A) {
+
+  int min = Integer.MAX_VALUE;
+  for(int i = 0; i < A.length; i++){
+    for(int j = i+1; j < A.length; j++){
+        min = Math.min(min, A[i] ^ A[j]);
+  
+    }
+  }
+  return min;
+}
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *If we oberve taking numbers xor, to get min xor, we need same bits at msb and if we want differents bits that should comes lsb, so this way can achieve lower xor value. one more thing if two elements are near then their xor value will be lower. so sorting the array makes elements comes to near..*
+- **⏳ Time Complexity:** `O(n^logn)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 2
-[Write your Java code here]
+public int findMinXor(int[] A) {
+
+  int min = Integer.MAX_VALUE;
+  Arrays.sort(A);
+
+  for(int i = 1; i < A.length; i++){
+    min = Math.min(min, A[i-1] ^ A[i]);
+  }
+  return min;
+}
 ```
 
 ---
