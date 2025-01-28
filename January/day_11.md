@@ -90,25 +90,48 @@ public int findMinXor(int[] A) {
 
 ---
 
-### 🧩 Problem 3: [Problem Title or Description]
-- **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+### 🧩 Problem 3: 
+Given an integer A.
+Two numbers, X and Y, are defined as follows:
 
-```java
-// Code implementation for Problem 3
-[Write your Java code here]
-```
+X is the greatest number smaller than A such that the XOR sum of X and A is the same as the sum of X and A.
+Y is the smallest number greater than A, such that the XOR sum of Y and A is the same as the sum of Y and A.
+Find and return the XOR of X and Y.
+
+NOTE 1: XOR of X and Y is defined as X ^ Y where '^' is the BITWISE XOR operator.
+
+NOTE 2: Your code will be run against a maximum of 100000 Test Cases.
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your aproach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Based on question, x value will be greatest no, but smaller than A, so to satisfy xor and or we need make where 1s in A should be 0 in X. to maximize x we add 1s wherever 0 in A. for y we need smallest greater than A, for that if we set msb+1 and unset every bit then we can achieve it.*
+- **⏳ Time Complexity:** `O(1)`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int solve(int A) {
+
+  //Find X
+  int x = 0;
+  int msb_pos = 0;
+  for(int i = 30; i >=0; i--){
+    if((A & (1 << i)) != 0){
+      msb_pos = i;
+      break;
+    }
+  }
+  for(int i = 0; i <= msb_pos; i++){
+    if((A & (1 << i)) == 0){
+      x |= ( 1<< i);
+    }
+  }
+
+  //Find Y
+
+  int y = 1<< (msb_pos + 1);
+
+  return (x ^ y);
+}
 ```
 
 ---
