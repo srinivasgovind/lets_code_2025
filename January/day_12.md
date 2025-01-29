@@ -2,8 +2,8 @@
 # 📅 Day 12: 2025-01-21
 
 ## What I Learned
-- **Topic:**
-- **Details:**
+- **Topic: Maths Modular Arithmetic**
+- **Details: ADV DSA 1**
 - **Streak Break Reason: No**
 
 ## 🚀 Problems Solved
