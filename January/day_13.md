@@ -117,25 +117,77 @@ public class Solution {
 
 ---
 
-### 🧩 Problem 3: [Problem Title or Description]
+### 🧩 Problem 3: 
+Given a positive integer A. Return an array of minimum length whose elements represent the powers of 3, and the sum of all the elements is equal to A.
 - **Approach 1: Bruteforce**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Here the intution is observing how binary no forms from base10 integer, mimic the same apprach*
+- **⏳ Time Complexity:** `O(2*log3(A))`
+- **💾 Space Complexity:** `O(log3(A))`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int[] solve(int A) {
+  // represent no in binary by dividing A until zero, gives binary representation.. 
+  //similary represent no in 3's, by dividing A until zero , we get representation we store the Queue
+  //get elements from queue, iterate and multiply powers of 3 for each pos.
+
+  //declaring the result of logA base 3 size
+  List<Integer> result = new ArrayList<>();
+  Queue<Integer> que = new LinkedList<>();
+
+
+  while(A > 0){
+    que.add(A % 3);
+    A = A/3;
+  }
+
+  int pos = 0;
+  while(!que.isEmpty()){
+    int ele = que.remove();
+    for(int ele_times = 1; ele_times <= ele; ele_times++){
+      result.add((int)Math.pow(3, pos));
+    }
+    pos++;
+  }
+
+  return result.stream().mapToInt(Integer:: intValue).toArray();
+
+
+}
 ```
 
 - **Approach 2: Optimized**
-  - *[Briefly describe your approach]*
-- **⏳ Time Complexity:** `O(n^2)`
-- **💾 Space Complexity:** `O(n)`
+  - *Removed the queue part, to save space*
+- **⏳ Time Complexity:** `O(2*log3(A))`
+- **💾 Space Complexity:** `O(1)`
 
 ```java
 // Code implementation for Problem 3
-[Write your Java code here]
+public int[] solve(int A) {
+  // represent no in binary by dividing A until zero, gives binary representation.. 
+  //similary represent no in 3's, by dividing A until zero , we get representation we store the Queue
+  //get elements from queue, iterate and multiply powers of 3 for each pos.
+
+  List<Integer> result = new ArrayList<>();
+
+
+  int power = 1;
+
+  while(A > 0){
+    int rem = A % 3;
+    while(rem > 0){
+      result.add(power);
+      rem--;
+    }
+    power *= 3;
+    A = A/3;
+  }
+
+
+  return result.stream().mapToInt(Integer:: intValue).toArray();
+
+
+}
 ```
 
 ---
